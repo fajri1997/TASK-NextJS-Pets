@@ -8,8 +8,13 @@ const btnStyle =
 function PetItem({ pet }) {
   const [petImage, setPetImage] = useState(pet.image);
 
+  //this for trun of the gif animation
   function changeImgBTN() {
-    setPetImage(pet.image2);
+    if (petImage === pet.image2) {
+      setPetImage(pet.image);
+    } else if (petImage === pet.image) {
+      setPetImage(pet.image2);
+    }
   }
 
   return (
@@ -21,6 +26,7 @@ function PetItem({ pet }) {
           className="transform duration-500 ease-in-out hover:brightness-75"
           fill
           sizes="30vw"
+          onClick={changeImgBTN}
         />
       </div>
       <div className="h-48 relative">
@@ -31,7 +37,7 @@ function PetItem({ pet }) {
           {pet.description}
         </div>
         <div className="grid grid-cols-2 gap-2">
-          <button type="button" className={btnStyle} onClick={changeImgBTN}>
+          <button type="button" className={btnStyle}>
             Pet
           </button>
           <button type="button" className={btnStyle}>
