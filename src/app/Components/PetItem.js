@@ -1,15 +1,15 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-
 const btnStyle =
-  "m-4 p-2 bg-palette-primary text-white rounded-sm font-primary font-semibold  hover:bg-palette-dark";
+  "m-4 p-2 bg-palette-primary text-white rounded-sm font-primary font-semibold hover:bg-palette-dark";
 
-function PetItem({ pet }) {
+function PetItem({ pet, onAdopt }) {
+  // Accept 'onAdopt' as a prop
   const [petImage, setPetImage] = useState(pet.image);
 
-  //this for trun of the gif animation
-  function changeImgBTN() {
+  // Function to switch images
+  function switchingImg() {
     if (petImage === pet.image2) {
       setPetImage(pet.image);
     } else if (petImage === pet.image) {
@@ -26,7 +26,7 @@ function PetItem({ pet }) {
           className="transform duration-500 ease-in-out hover:brightness-75"
           fill
           sizes="30vw"
-          onClick={changeImgBTN}
+          onClick={switchingImg}
         />
       </div>
       <div className="h-48 relative">
@@ -40,7 +40,9 @@ function PetItem({ pet }) {
           <button type="button" className={btnStyle}>
             Pet
           </button>
-          <button type="button" className={btnStyle}>
+          <button onClick={onAdopt} type="button" className={btnStyle}>
+            {" "}
+            {/* Use onAdopt */}
             Adopt
           </button>
         </div>

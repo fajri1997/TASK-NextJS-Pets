@@ -2,9 +2,11 @@
 import pets from "../data/pets";
 import PetItem from "./PetItem";
 import { useState } from "react";
+
 function PetsList() {
   const [query, setQuery] = useState("");
   const [type, setType] = useState("");
+  const [adopt, setAdopt] = useState([]);
 
   const filteredPets = pets.filter(
     (pet) =>
@@ -12,15 +14,31 @@ function PetsList() {
       (type === "" || pet.type === type)
   );
 
-  const petList = filteredPets.map((pet) => <PetItem pet={pet} key={pet.id} />);
+  const handleAdopt = (petId) => {
+    const confirmation = window.confirm(
+      "Are you sure you want to adopt this pet?"
+    );
+    if (confirmation) {
+      setAdopt((prevAdoptedPets) => [...prevAdoptedPets, petId]);
+    }
+  };
+
+  const petList = filteredPets.map((pet) => (
+    <PetItem
+      pet={pet}
+      key={pet.id}
+      onAdopt={() => handleAdopt(pet.id)} // Pass onAdopt prop here
+    />
+  ));
 
   function handleSearch(event) {
     setQuery(event.target.value);
-    console.log(event.target.value);
   }
+
   function handlePetSelector(event) {
     setType(event.target.value);
   }
+
   return (
     <>
       <div className="mx-auto">
